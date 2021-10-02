@@ -1,8 +1,7 @@
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch('/api/fs');
-		const files = await res.json();
-		files.sort((a, b) => a.isDirectory < b.isDirectory);
+		let files = await res.json();
 		return { props: { files } };
 	}
 </script>

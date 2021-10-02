@@ -5,5 +5,4 @@
 </script>
 
 <Nav />
-<Breadcrumb />
 <slot />

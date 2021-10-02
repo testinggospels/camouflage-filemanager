@@ -1,8 +1,14 @@
 <script>
+	import Breadcrumb from './Breadcrumb.svelte';
+
 	export let files;
 	export let sub = '/';
+	$: {
+		files = files.sort((a, b) => a.isDirectory < b.isDirectory);
+	}
 </script>
 
+<Breadcrumb {sub} />
 <div class="overflow-x-auto">
 	<table class="table w-full">
 		<thead>
@@ -36,7 +42,7 @@
 						</td>
 					{:else}
 						<td>
-							<a href="{sub}{file}/__edit">
+							<a href="{sub}{file}/camouflage-editor">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="inline-block w-5 h-5 mr-2 stroke-current"
