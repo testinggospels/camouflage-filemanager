@@ -26,7 +26,7 @@ export function dirStat(inputFolder) {
 
 export function readFile(inputFile) {
     dotenv.config();
-    const fsRoot = path.join(path.resolve(process.env['FS_ROOT']), inputFile)
+    const fsRoot = path.join(path.resolve(process.env['FS_ROOT'] || process.cwd()), inputFile)
     const isDirectory = fs.lstatSync(fsRoot).isDirectory()
     if (isDirectory) {
         return {
