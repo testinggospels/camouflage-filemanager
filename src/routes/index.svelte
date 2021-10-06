@@ -7,7 +7,7 @@
 </script>
 
 <script>
-	import FileList from './components/FileList.svelte';
+	import FileList from '$lib/components/FileList.svelte';
 	export let files;
 </script>
 
