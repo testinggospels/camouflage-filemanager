@@ -20,10 +20,10 @@
 				method: 'DELETE'
 			});
 			const resJson = await res.json();
-			if (resJson.response.success) {
-				alert('File Deleted');
-			} else {
+			if (resJson.response.error) {
 				alert(resJson.response.message);
+			} else {
+				files = resJson.response;
 			}
 		}
 	};

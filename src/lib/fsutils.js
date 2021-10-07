@@ -39,11 +39,17 @@ export function readFile(inputFile) {
 }
 
 export function deleteFile(inputFile) {
-    const fsRoot = path.join(path.resolve(process.env["VITE_FS_ROOT"] || process.cwd()), inputFile)
+    const fsRoot = path.resolve(process.env["VITE_FS_ROOT"] || process.cwd())
+    const delResource = path.join(fsRoot, inputFile)
+    const parent = path.dirname(delResource)
     try {
-        fs.removeSync(fsRoot)
-        return { success: true, message: 'Deleted successfully' }
+        fs.removeSync(delResource)
+        if (parent === fsRoot) {
+            return dirStat();
+        } else {
+            return dirStat(parent.replace(fsRoot, ""))
+        }
     } catch (err) {
-        return { success: false, message: err.message }
+        return { error: true, message: err.message }
     }
 }
