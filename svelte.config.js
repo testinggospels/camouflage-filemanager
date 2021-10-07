@@ -12,7 +12,8 @@ const config = {
 		vite: {
 			ssr: {
 				external: Object.keys(pkg.dependencies || {})
-			}
+			},
+			envPrefix: "CF_"
 		},
 		adapter: node()
 	},
