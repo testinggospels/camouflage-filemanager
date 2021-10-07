@@ -4,9 +4,9 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 export function dirStat(inputFolder) {
-    let fsRoot = path.resolve(process.env['FS_ROOT'] || process.cwd())
+    let fsRoot = path.resolve(process.env['VITE_FS_ROOT'] || process.cwd())
     if (inputFolder) {
-        fsRoot = path.join(path.resolve(process.env['FS_ROOT'] || process.cwd()), inputFolder)
+        fsRoot = path.join(path.resolve(process.env['VITE_FS_ROOT'] || process.cwd()), inputFolder)
     }
     const files = fs.readdirSync(fsRoot)
     const dirStat = [];
@@ -25,7 +25,7 @@ export function dirStat(inputFolder) {
 }
 
 export function readFile(inputFile) {
-    const fsRoot = path.join(path.resolve(process.env['FS_ROOT'] || process.cwd()), inputFile)
+    const fsRoot = path.join(path.resolve(process.env['VITE_FS_ROOT'] || process.cwd()), inputFile)
     const isDirectory = fs.lstatSync(fsRoot).isDirectory()
     if (isDirectory) {
         return {
@@ -39,7 +39,7 @@ export function readFile(inputFile) {
 }
 
 export function deleteFile(inputFile) {
-    const fsRoot = path.join(path.resolve(process.env["FS_ROOT"] || process.cwd()), inputFile)
+    const fsRoot = path.join(path.resolve(process.env["VITE_FS_ROOT"] || process.cwd()), inputFile)
     try {
         fs.removeSync(fsRoot)
         return { success: true, message: 'Deleted successfully' }
