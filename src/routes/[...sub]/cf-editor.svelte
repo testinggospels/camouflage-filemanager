@@ -8,7 +8,7 @@
 </script>
 
 <script>
-	import Breadcrumb from '../components/Breadcrumb.svelte';
+	import Breadcrumb from '$lib/components/Breadcrumb.svelte';
 	export let fileContent;
 	export let sub;
 </script>

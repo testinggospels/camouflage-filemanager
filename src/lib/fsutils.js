@@ -1,12 +1,12 @@
-import fs from 'fs'
+import fs from 'fs-extra'
 import path from 'path';
 import dotenv from 'dotenv'
+dotenv.config();
 
 export function dirStat(inputFolder) {
-    dotenv.config();
-    let fsRoot = path.resolve(process.env['FS_ROOT'] || process.cwd())
+    let fsRoot = path.resolve(process.env['CF_FS_ROOT'] || process.cwd())
     if (inputFolder) {
-        fsRoot = path.join(path.resolve(process.env['FS_ROOT'] || process.cwd()), inputFolder)
+        fsRoot = path.join(path.resolve(process.env['CF_FS_ROOT'] || process.cwd()), inputFolder)
     }
     const files = fs.readdirSync(fsRoot)
     const dirStat = [];
@@ -25,8 +25,7 @@ export function dirStat(inputFolder) {
 }
 
 export function readFile(inputFile) {
-    dotenv.config();
-    const fsRoot = path.join(path.resolve(process.env['FS_ROOT'] || process.cwd()), inputFile)
+    const fsRoot = path.join(path.resolve(process.env['CF_FS_ROOT'] || process.cwd()), inputFile)
     const isDirectory = fs.lstatSync(fsRoot).isDirectory()
     if (isDirectory) {
         return {
@@ -37,4 +36,20 @@ export function readFile(inputFile) {
         }
     }
     return fs.readFileSync(fsRoot).toString()
+}
+
+export function deleteFile(inputFile) {
+    const fsRoot = path.resolve(process.env["CF_FS_ROOT"] || process.cwd())
+    const delResource = path.join(fsRoot, inputFile)
+    const parent = path.dirname(delResource)
+    try {
+        fs.removeSync(delResource)
+        if (parent === fsRoot) {
+            return dirStat();
+        } else {
+            return dirStat(parent.replace(fsRoot, ""))
+        }
+    } catch (err) {
+        return { error: true, message: err.message }
+    }
 }

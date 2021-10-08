@@ -8,13 +8,13 @@
 </script>
 
 <script>
-	import FileList from '../components/FileList.svelte';
+	import FileList from '$lib/components/FileList.svelte';
 	export let files;
 	export let sub;
 </script>
 
 <svelte:head>
-	<title>Camouflage UI</title>
+	<title>Camouflage Filemanager</title>
 </svelte:head>
 
 <FileList {files} sub="/{sub}/" />
