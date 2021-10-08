@@ -1,6 +1,10 @@
 <script>
 	import Breadcrumb from './Breadcrumb.svelte';
-
+	import { browser } from '$app/env';
+	let CF_WRITE_PROTECTED;
+	if (browser) {
+		CF_WRITE_PROTECTED = JSON.parse(localStorage.getItem('env'))['CF_WRITE_PROTECTED'];
+	}
 	export let files;
 	export let sub = '/';
 	$: {
@@ -37,7 +41,7 @@
 				<th class="text-center">Name</th>
 				<th class="text-center">Created Time</th>
 				<th class="text-center">Modified Time</th>
-				{#if import.meta.env.CF_WRITE_PROTECTED === 'false'}
+				{#if CF_WRITE_PROTECTED === 'false'}
 					<th>Delete</th>
 				{/if}
 			</tr>
@@ -87,7 +91,7 @@
 					{/if}
 					<td class="text-center">{createdTime}</td>
 					<td class="text-center">{modifiedTime}</td>
-					{#if import.meta.env.CF_WRITE_PROTECTED === 'false'}
+					{#if CF_WRITE_PROTECTED === 'false'}
 						<td>
 							<a
 								href="{sub}{file}"
