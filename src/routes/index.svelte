@@ -5,7 +5,7 @@
 		let files = await res.json();
 		if (browser) {
 			const env_res = await fetch('/api/env');
-			env = await env_res.json();
+			let env = await env_res.json();
 			localStorage.setItem('env', JSON.stringify(env));
 		}
 		return { props: { files } };
