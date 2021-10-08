@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>Camouflage UI</title>
+	<title>Camouflage Filemanager</title>
 </svelte:head>
 
 <FileList {files} />

@@ -31,7 +31,7 @@
 
 <Breadcrumb {sub} />
 <div class="overflow-x-auto">
-	<table class="table w-full">
+	<table class="table w-full table-zebra table-compact">
 		<thead>
 			<tr>
 				<th class="text-center">Name</th>
@@ -44,7 +44,7 @@
 		</thead>
 		<tbody>
 			{#each files as { file, createdTime, modifiedTime, isDirectory }}
-				<tr>
+				<tr class="hover">
 					{#if isDirectory}
 						<td>
 							<a href="{sub}{file}">
@@ -66,7 +66,7 @@
 						</td>
 					{:else}
 						<td>
-							<a href="{sub}{file}/camouflage-editor">
+							<a href="{sub}{file}/cf-editor">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="inline-block w-5 h-5 mr-2 stroke-current"
