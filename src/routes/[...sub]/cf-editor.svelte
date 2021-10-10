@@ -1,7 +1,7 @@
 <script context="module">
 	export async function load({ fetch, page }) {
 		const sub = page.params.sub;
-		const res = await fetch(`/api/fs/${sub}/file`);
+		const res = await fetch(`/api/fs/${sub}/cf-file`);
 		const { fileContent } = await res.json();
 		return { props: { fileContent, sub } };
 	}
