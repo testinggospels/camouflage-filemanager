@@ -1,5 +1,6 @@
 <script>
 	import { browser } from '$app/env';
+	import CreateModal from '$lib/components/CreateModal.svelte';
 	let CF_FS_ROOT;
 	let CF_WRITE_PROTECTED;
 	if (browser) {
@@ -20,6 +21,9 @@
 				FS_ROOT: {CF_FS_ROOT} <br />
 				WRITE_PROTECTED: {CF_WRITE_PROTECTED}
 			</span>
+			{#if CF_WRITE_PROTECTED === 'false'}
+				<CreateModal />
+			{/if}
 		</div>
 	</div>
 </div>
