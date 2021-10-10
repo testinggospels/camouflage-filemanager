@@ -8,7 +8,7 @@ RUN npm run build
 FROM node:alpine
 WORKDIR /app
 COPY --from=builder /app/build .
-COPY package.json .
-COPY node_modules/ node_modules/
+COPY --from=builder /app/node_modules .
+COPY --from=builder /app/package.json .
 EXPOSE 3000
 CMD ["node", "index.js"]
