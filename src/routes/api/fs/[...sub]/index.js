@@ -31,7 +31,7 @@ export async function post({ params, query }) {
     let response = {};
     if (type) {
         switch (type) {
-            case "dir":
+            case "folder":
                 response = await createFolder(sub);
                 if (response.error) {
                     status = 500

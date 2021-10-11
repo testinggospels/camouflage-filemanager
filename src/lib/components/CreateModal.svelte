@@ -1,9 +1,23 @@
 <script>
 	import { page } from '$app/stores';
+	import { newFiles } from '$lib/stores.js';
 	let modal;
 	let type;
+	let name;
 	function toggleModal() {
 		modal.classList.toggle('modal-open');
+	}
+	async function create() {
+		const res = await fetch(`/api/fs/${name}?type=${type.toLowerCase()}`, {
+			method: 'POST'
+		});
+		const json = await res.json();
+		newFiles.update(() => {
+			return json.response;
+		});
+		toggleModal();
+		name = '';
+		type = 'Select';
 	}
 </script>
 
@@ -58,11 +72,12 @@
 				id="resource-name"
 				type="text"
 				placeholder="File / Folder Name"
+				bind:value={name}
 				class="input input-bordered"
 			/>
 		</div>
 		<div class="modal-action">
-			<button on:click={toggleModal} class="btn btn-primary">Create</button>
+			<button on:click={create} class="btn btn-primary">Create</button>
 			<button on:click={toggleModal} class="btn">Close</button>
 		</div>
 	</div>
