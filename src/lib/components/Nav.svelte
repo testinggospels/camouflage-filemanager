@@ -1,5 +1,6 @@
 <script>
 	import { browser } from '$app/env';
+	import { page } from '$app/stores';
 	import CreateModal from '$lib/components/CreateModal.svelte';
 	let CF_FS_ROOT;
 	let CF_WRITE_PROTECTED;
@@ -21,7 +22,7 @@
 				FS_ROOT: {CF_FS_ROOT} <br />
 				WRITE_PROTECTED: {CF_WRITE_PROTECTED}
 			</span>
-			{#if CF_WRITE_PROTECTED === 'false'}
+			{#if CF_WRITE_PROTECTED === 'false' && !$page.path.includes('cf-editor')}
 				<CreateModal />
 			{/if}
 		</div>
