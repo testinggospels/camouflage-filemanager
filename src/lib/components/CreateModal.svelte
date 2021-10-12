@@ -8,7 +8,7 @@
 		modal.classList.toggle('modal-open');
 	}
 	async function create() {
-		const res = await fetch(`/api/fs/${name}?type=${type.toLowerCase()}`, {
+		const res = await fetch(`/api/fs/${$page.path}/${name}?type=${type.toLowerCase()}`, {
 			method: 'POST'
 		});
 		const json = await res.json();

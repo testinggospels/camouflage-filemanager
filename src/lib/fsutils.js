@@ -73,7 +73,7 @@ function create(createPath, fsRoot) {
         if (parent === fsRoot) {
             return dirStat()
         } else {
-            return dirStat(parent)
+            return dirStat(parent.replace(fsRoot, ""))
         }
     } catch (err) {
         return { error: true, message: err.message }
