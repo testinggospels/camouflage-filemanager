@@ -53,3 +53,29 @@ export function deleteFile(inputFile) {
         return { error: true, message: err.message }
     }
 }
+
+export function createFolder(inputFile) {
+    const fsRoot = path.resolve(process.env["CF_FS_ROOT"] || process.cwd())
+    const file = path.join(fsRoot, inputFile)
+    fs.mkdirSync(file);
+    return create(file, fsRoot)
+}
+export function createFile(inputFile) {
+    const fsRoot = path.resolve(process.env["CF_FS_ROOT"] || process.cwd())
+    const file = path.join(fsRoot, inputFile)
+    fs.createFileSync(file);
+    return create(file, fsRoot);
+}
+
+function create(createPath, fsRoot) {
+    const parent = path.dirname(createPath)
+    try {
+        if (parent === fsRoot) {
+            return dirStat()
+        } else {
+            return dirStat(parent.replace(fsRoot, ""))
+        }
+    } catch (err) {
+        return { error: true, message: err.message }
+    }
+}
