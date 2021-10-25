@@ -79,3 +79,14 @@ function create(createPath, fsRoot) {
         return { error: true, message: err.message }
     }
 }
+
+export function writeFile(inputFile, content) {
+    const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd())
+    const file = path.join(fsRoot, inputFile)
+    try {
+        fs.writeFileSync(file, content)
+        return "success";
+    } catch (err) {
+        return err.message;
+    }
+}

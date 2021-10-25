@@ -9,16 +9,46 @@
 
 <script>
 	import Breadcrumb from '$lib/components/Breadcrumb.svelte';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 	export let fileContent;
 	export let sub;
 	let editor;
+	let codeEditor;
+	let WRITE_PROTECTED;
+	if (browser) {
+		WRITE_PROTECTED = JSON.parse(localStorage.getItem('env'))['WRITE_PROTECTED'];
+	}
 	onMount(() => {
-		let codeEditor = CodeMirror.fromTextArea(editor, {
+		codeEditor = CodeMirror.fromTextArea(editor, {
 			lineNumbers: true,
 			theme: 'monokai'
 		});
 	});
+	const saveFile = async () => {
+		const data = JSON.stringify({
+			content: codeEditor.getValue()
+		});
+		const res = await fetch(`/api/fs/${sub}/cf-file`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: data
+		});
+		const { response } = await res.json();
+		alert(response);
+	};
+	const cancel = () => {
+		const breadCrumb = sub.split('/');
+		if (breadCrumb.length == 1) {
+			goto('/');
+		} else {
+			breadCrumb.splice(-1);
+			goto('/' + breadCrumb.join('/'));
+		}
+	};
 </script>
 
 <svelte:head>
@@ -41,8 +71,10 @@
 		bind:value={fileContent}
 		bind:this={editor}
 	/>
-	<div class="btn-group fluid justify-center">
-		<button class="btn btn-neutral w-1/3 m-6">Cancel</button>
-		<button class="btn btn-primary w-1/3 m-6">Save</button>
-	</div>
+	{#if WRITE_PROTECTED === 'false'}
+		<div class="btn-group fluid justify-center">
+			<button class="btn btn-neutral w-1/3 m-6" on:click={cancel}>Cancel</button>
+			<button class="btn btn-primary w-1/3 m-6" on:click={saveFile}>Save</button>
+		</div>
+	{/if}
 </div>
