@@ -12,6 +12,9 @@
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
+	let CodeMirror;
+	import 'codemirror/lib/codemirror.css';
+	import 'codemirror/theme/monokai.css';
 	export let fileContent;
 	export let sub;
 	let editor;
@@ -20,11 +23,14 @@
 	if (browser) {
 		WRITE_PROTECTED = JSON.parse(localStorage.getItem('env'))['WRITE_PROTECTED'];
 	}
-	onMount(() => {
-		codeEditor = CodeMirror.fromTextArea(editor, {
-			lineNumbers: true,
-			theme: 'monokai'
-		});
+	onMount(async () => {
+		if (browser) {
+			CodeMirror = (await import('codemirror')).default;
+			codeEditor = CodeMirror.fromTextArea(editor, {
+				lineNumbers: true,
+				theme: 'monokai'
+			});
+		}
 	});
 	const saveFile = async () => {
 		const data = JSON.stringify({
@@ -51,18 +57,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>Camouflage - Editor</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
-	<link
-		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css"
-	/>
-	<link
-		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/theme/monokai.min.css"
-	/>
-</svelte:head>
 <Breadcrumb sub="/{sub}" />
 <div class="p-6 h-96">
 	<textarea
