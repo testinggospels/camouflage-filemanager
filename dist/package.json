@@ -1,0 +1,32 @@
+{
+	"name": "camouflage-filemanager",
+	"version": "0.0.1",
+	"license": "MIT",
+	"preferGlobal": true,
+	"author": "Shubhendu Madhukar <shubhendumadhukar@gmail.com>",
+	"description": "Browser based file manager for remotely hosted files.",
+	"homepage": "https://testinggospels.github.io/camouflage/",
+	"keywords": [
+		"filemanager",
+		"camouflage",
+		"explorer"
+	],
+	"scripts": {
+		"start": "node build/index.js"
+	},
+	"main": "bin/filemanager.js",
+	"bin": {
+		"filemanager": "bin/filemanager.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/testinggospels/camouflage-filemanager"
+	},
+	"type": "module",
+	"dependencies": {
+		"codemirror": "^5.63.3",
+		"daisyui": "^1.14.2",
+		"dotenv": "^10.0.0",
+		"fs-extra": "^10.0.0"
+	}
+}
