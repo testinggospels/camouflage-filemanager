@@ -1,6 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { newFiles } from '$lib/stores.js';
 	let modal;
 	let type;
 	let name;
@@ -11,10 +10,7 @@
 		const res = await fetch(`/api/fs/${$page.path}/${name}?type=${type.toLowerCase()}`, {
 			method: 'POST'
 		});
-		const json = await res.json();
-		newFiles.update(() => {
-			return json.response;
-		});
+		window.location.reload();
 		toggleModal();
 		name = '';
 		type = 'Select';
