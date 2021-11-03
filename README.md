@@ -2,6 +2,11 @@
 
 Camouflage Filemanager is a web based filemanager that allows you to browse and create files/folders, edit text based files, download files.
 
+## Preview
+![CamouflageUI-1](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-1.png)
+![CamouflageUI-2](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-2.png)
+![CamouflageUI-3](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-3.png)
+
 ## Installation
 
 ### NPM
