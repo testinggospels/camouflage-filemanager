@@ -57,7 +57,7 @@ export function deleteFile(inputFile) {
 export function createFolder(inputFile) {
     const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd())
     const file = path.join(fsRoot, inputFile)
-    fs.mkdirSync(file);
+    fs.mkdirpSync(file);
     return create(file, fsRoot)
 }
 export function createFile(inputFile) {
