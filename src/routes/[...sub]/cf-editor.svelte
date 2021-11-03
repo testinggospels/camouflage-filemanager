@@ -71,7 +71,11 @@
 			<button class="btn btn-primary w-1/3 m-6" on:click={saveFile}>Save</button>
 		</div>
 		<div class="btn-group fluid justify-center">
-			<a class="btn btn-error w-1/3 m-6" href={'/api/fs/' + sub + '/cf-download'}>Download</a>
+			<a
+				class="btn btn-error w-1/3 m-6"
+				href={'/api/fs/' + sub + '/cf-download'}
+				on:click|stopPropagation>Download</a
+			>
 		</div>
 	{/if}
 </div>
