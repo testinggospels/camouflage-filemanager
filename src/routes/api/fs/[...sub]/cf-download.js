@@ -6,7 +6,7 @@ export async function get({ params }) {
     return {
         status: 200,
         headers: {
-            'Content-Disposition': `attachment; filename="${filename(sub)}"; filename*=UTF-8'${encodeURIComponent(filename(sub))}''`
+            'Content-Disposition': `attachment; filename="${filename(sub)}"; filename*=UTF-8'${encodeURIComponent(filename(sub))}'`
         },
         body: fileContent
     }
