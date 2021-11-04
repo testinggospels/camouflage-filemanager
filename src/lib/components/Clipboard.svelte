@@ -1,9 +1,9 @@
 <script>
 	import { clipboard } from '$lib/stores';
+	import { page } from '$app/stores';
 	let CLIPBOARD_EMPTY = true;
 	let clipboard_items = [];
 	clipboard.subscribe((value) => {
-		console.log(value);
 		if (value.length > 0) {
 			CLIPBOARD_EMPTY = false;
 			clipboard_items = value;
@@ -14,7 +14,29 @@
 		clipboard.update(() => []);
 		CLIPBOARD_EMPTY = true;
 	};
-	const handlePaste = (target) => {};
+	const handlePaste = async (target) => {
+		while (target.tagName.toLowerCase() !== 'a') {
+			target = target.parentElement;
+		}
+		const [source, action] = target.getAttribute('href').split('#');
+		const res = await fetch('/api/fs/cf-paste', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				source,
+				action,
+				destination: $page.path
+			})
+		});
+		if (!res.ok) {
+			const { err } = await res.json();
+			alert(err);
+		} else {
+			window.location.reload();
+		}
+	};
 </script>
 
 {#if !CLIPBOARD_EMPTY}
@@ -55,7 +77,7 @@
 							<td>{action}</td>
 							<td>
 								<a
-									href={source}
+									href="{source}#{action}"
 									on:click|preventDefault={(e) => handlePaste(e.target)}
 									target="_self"
 								>

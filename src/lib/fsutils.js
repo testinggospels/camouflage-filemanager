@@ -90,3 +90,25 @@ export function writeFile(inputFile, content) {
         return err.message;
     }
 }
+
+export function copy(source, dest) {
+    try {
+        const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd())
+        fs.emptyDirSync(path.basename(source));
+        fs.copySync(path.join(fsRoot, source), path.join(fsRoot, dest, path.basename(source)), { overwrite: false, errorOnExist: true })
+        return { success: true }
+    } catch (err) {
+        return { success: false, err: err.message }
+    }
+}
+
+export function cut(source, dest) {
+    try {
+        const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd());
+        fs.emptyDirSync(path.basename(source));
+        fs.moveSync(path.join(fsRoot, source), path.join(fsRoot, dest, path.basename(source)), { overwrite: false });
+        return { success: true }
+    } catch (err) {
+        return { success: false, err: err.message }
+    }
+}
