@@ -93,9 +93,14 @@ export function writeFile(inputFile, content) {
 
 export function copy(source, dest) {
     try {
-        const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd())
-        fs.emptyDirSync(path.basename(source));
-        fs.copySync(path.join(fsRoot, source), path.join(fsRoot, dest, path.basename(source)), { overwrite: false, errorOnExist: true })
+        const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd());
+        const originalLocation = path.join(fsRoot, source);
+        const newLocation = path.join(fsRoot, dest, path.basename(source));
+        if (!fs.existsSync(newLocation)) {
+            fs.copySync(originalLocation, newLocation, { overwrite: false, errorOnExist: true })
+        } else {
+            return { success: false, err: "dest already exists" }
+        }
         return { success: true }
     } catch (err) {
         return { success: false, err: err.message }
@@ -105,8 +110,13 @@ export function copy(source, dest) {
 export function cut(source, dest) {
     try {
         const fsRoot = path.resolve(process.env["FS_ROOT"] || process.cwd());
-        fs.emptyDirSync(path.basename(source));
-        fs.moveSync(path.join(fsRoot, source), path.join(fsRoot, dest, path.basename(source)), { overwrite: false });
+        const originalLocation = path.join(fsRoot, source);
+        const newLocation = path.join(fsRoot, dest, path.basename(source));
+        if (!fs.existsSync(newLocation)) {
+            fs.moveSync(originalLocation, newLocation, { overwrite: false, errorOnExist: true })
+        } else {
+            return { success: false, err: "dest already exists" }
+        }
         return { success: true }
     } catch (err) {
         return { success: false, err: err.message }
