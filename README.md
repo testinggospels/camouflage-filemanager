@@ -6,6 +6,9 @@ Camouflage Filemanager is a web based filemanager that allows you to browse and 
 ![CamouflageUI-1](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-1.png)
 ![CamouflageUI-2](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-2.png)
 ![CamouflageUI-3](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-3.png)
+![CamouflageUI-4](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-4.png)
+![CamouflageUI-5](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-5.png)
+![CamouflageUI-6](https://raw.githubusercontent.com/testinggospels/camouflage/develop/docs/CamouflageUI-6.png)
 
 ## Installation
 
